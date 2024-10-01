@@ -1,35 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { JobProvider } from './contexts/JobContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Dashboard from './components/Dashboard';
+import JobList from './components/JobList';
+import AddJob from './components/AddJob';
+import EditJob from './components/EditJob';
+import MonthlyTracker from './components/MonthlyTracker';
+import Navbar from './components/Navbar';
+import NotFound from './components/NotFound';
+import { Container } from 'react-bootstrap';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AuthProvider>
+      <JobProvider>
+        <Router>
+          <Navbar />
+          <Container className="mt-4">
+            <Routes>
+              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs"
+                element={
+                  <ProtectedRoute>
+                    <JobList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/add"
+                element={
+                  <ProtectedRoute>
+                    <AddJob />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/edit/:id"
+                element={
+                  <ProtectedRoute>
+                    <EditJob />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/monthly-tracker"
+                element={
+                  <ProtectedRoute>
+                    <MonthlyTracker />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Container>
+        </Router>
+      </JobProvider>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
