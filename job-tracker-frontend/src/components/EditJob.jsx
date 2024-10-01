@@ -27,7 +27,7 @@ const EditJob = () => {
         setJob(fetchedJob);
         setCompany(fetchedJob.company);
         setPosition(fetchedJob.position);
-        setApplicationDate(fetchedJob.applicationDate.slice(0, 10)); // Format for input[type=date]
+        setApplicationDate(fetchedJob.applicationDate); // Already in YYYY-MM-DD format
         setStatus(fetchedJob.status);
         setNotes(fetchedJob.notes || '');
       } catch (err) {
@@ -73,7 +73,7 @@ const EditJob = () => {
 
   return (
     <div className="d-flex justify-content-center align-items-center">
-      <Card style={{ width: '30rem' }}>
+      <Card bg="dark" text="white" style={{ width: '30rem' }}>
         <Card.Body>
           <Card.Title className="mb-4 text-center">Edit Job</Card.Title>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -86,6 +86,7 @@ const EditJob = () => {
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="Enter company name"
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
             <Form.Group id="position" className="mb-3">
@@ -96,6 +97,7 @@ const EditJob = () => {
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
                 placeholder="Enter position title"
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
             <Form.Group id="applicationDate" className="mb-3">
@@ -105,11 +107,12 @@ const EditJob = () => {
                 required
                 value={applicationDate}
                 onChange={(e) => setApplicationDate(e.target.value)}
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
             <Form.Group id="status" className="mb-3">
               <Form.Label>Status</Form.Label>
-              <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
+              <Form.Select value={status} onChange={(e) => setStatus(e.target.value)} className="bg-dark text-white border-secondary">
                 <option>Applied</option>
                 <option>Interviewing</option>
                 <option>Offered</option>
@@ -124,9 +127,10 @@ const EditJob = () => {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Additional notes (optional)"
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
-            <Button disabled={updating} className="w-100" type="submit">
+            <Button disabled={updating} className="w-100" variant="primary" type="submit">
               {updating ? 'Updating...' : 'Update Job'}
             </Button>
           </Form>

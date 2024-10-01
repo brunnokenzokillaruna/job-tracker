@@ -40,10 +40,11 @@ const JobList = () => {
             placeholder="Search by company or position"
             value={searchTerm}
             onChange={handleSearch}
+            className="bg-dark text-white border-secondary"
           />
         </Col>
         <Col md={4}>
-          <Form.Select value={filterStatus} onChange={handleFilter}>
+          <Form.Select value={filterStatus} onChange={handleFilter} className="bg-dark text-white border-secondary">
             <option>All</option>
             <option>Applied</option>
             <option>Interviewing</option>
@@ -66,7 +67,7 @@ const JobList = () => {
       ) : filteredJobs.length === 0 ? (
         <Alert variant="info">No job applications found.</Alert>
       ) : (
-        <Table striped bordered hover responsive>
+        <Table striped bordered hover responsive variant="dark">
           <thead>
             <tr>
               <th>Company</th>

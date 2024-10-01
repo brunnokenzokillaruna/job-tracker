@@ -48,7 +48,7 @@ const AddJob = () => {
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="Enter company name"
-                className="bg-dark text-white"
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
             <Form.Group id="position" className="mb-3">
@@ -59,7 +59,7 @@ const AddJob = () => {
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
                 placeholder="Enter position title"
-                className="bg-dark text-white"
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
             <Form.Group id="applicationDate" className="mb-3">
@@ -69,12 +69,12 @@ const AddJob = () => {
                 required
                 value={applicationDate}
                 onChange={(e) => setApplicationDate(e.target.value)}
-                className="bg-dark text-white"
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
             <Form.Group id="status" className="mb-3">
               <Form.Label>Status</Form.Label>
-              <Form.Select value={status} onChange={(e) => setStatus(e.target.value)} className="bg-dark text-white">
+              <Form.Select value={status} onChange={(e) => setStatus(e.target.value)} className="bg-dark text-white border-secondary">
                 <option>Applied</option>
                 <option>Interviewing</option>
                 <option>Offered</option>
@@ -89,7 +89,7 @@ const AddJob = () => {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Additional notes (optional)"
-                className="bg-dark text-white"
+                className="bg-dark text-white border-secondary"
               />
             </Form.Group>
             <Button disabled={loading} className="w-100" variant="primary" type="submit">

@@ -18,7 +18,7 @@ const JobItem = ({ job }) => {
     <tr>
       <td>{job.company}</td>
       <td>{job.position}</td>
-      <td>{new Date(job.applicationDate).toLocaleDateString()}</td>
+      <td>{job.applicationDate}</td>
       <td>{job.status}</td>
       <td>
         <Button as={Link} to={`/jobs/edit/${job.id}`} variant="warning" size="sm" className="me-2">
