@@ -36,7 +36,16 @@ export const JobProvider = ({ children }) => {
     try {
       const newJob = await jobService.createJob(jobData, token);
       setJobs((prevJobs) => [...prevJobs, newJob]);
-      setCurrentMonthCount((prevCount) => prevCount + 1);
+
+      // Check if the new job's applicationDate is in the current month
+      const newJobDate = new Date(newJob.applicationDate);
+      const currentDate = new Date();
+      if (
+        newJobDate.getMonth() === currentDate.getMonth() &&
+        newJobDate.getFullYear() === currentDate.getFullYear()
+      ) {
+        setCurrentMonthCount((prevCount) => prevCount + 1);
+      }
     } catch (err) {
       throw err;
     }
@@ -46,6 +55,9 @@ export const JobProvider = ({ children }) => {
     try {
       const updatedJob = await jobService.updateJob(id, updatedData, token);
       setJobs((prevJobs) => prevJobs.map((job) => (job.id === id ? updatedJob : job)));
+      
+      // Re-fetch the current month count to ensure accuracy
+      fetchMonthlyCount();
     } catch (err) {
       throw err;
     }
@@ -53,14 +65,16 @@ export const JobProvider = ({ children }) => {
 
   const deleteJob = async (id) => {
     try {
+      const jobToDelete = jobs.find((job) => job.id === id);
       await jobService.deleteJob(id, token);
-      const deletedJob = jobs.find((job) => job.id === id);
       setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id));
-      const appDate = new Date(deletedJob.applicationDate);
+
+      // Check if the deleted job was in the current month
+      const deletedJobDate = new Date(jobToDelete.applicationDate);
       const currentDate = new Date();
       if (
-        appDate.getMonth() === currentDate.getMonth() &&
-        appDate.getFullYear() === currentDate.getFullYear()
+        deletedJobDate.getMonth() === currentDate.getMonth() &&
+        deletedJobDate.getFullYear() === currentDate.getFullYear()
       ) {
         setCurrentMonthCount((prevCount) => prevCount - 1);
       }
@@ -80,7 +94,17 @@ export const JobProvider = ({ children }) => {
 
   const fetchMonthlyCount = async () => {
     const currentDate = new Date();
-    await fetchJobCountByMonth(currentDate.getFullYear(), currentDate.getMonth() + 1);
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    setLoadingCount(true);
+    setErrorCount('');
+    try {
+      const count = await jobService.getJobCountByMonth(year, month, token);
+      setCurrentMonthCount(count);
+    } catch (err) {
+      setErrorCount(err.response?.data?.message || 'Failed to fetch job count.');
+    }
+    setLoadingCount(false);
   };
 
   const fetchJobCountByMonth = async (year, month) => {

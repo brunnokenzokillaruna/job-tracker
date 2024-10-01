@@ -1,7 +1,11 @@
 /* src/index.css */
 
 body {
-  background-color: #121212;
+  background-image: url('./assets/background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
   color: #ffffff;
 }
 
@@ -17,22 +21,22 @@ body {
 }
 
 .btn-primary {
-  background-color: #3b82f6;
+  background-color: #1F6FEB;
   border: none;
 }
 
 .btn-success {
-  background-color: #10b981;
+  background-color: #2a995c;
   border: none;
 }
 
 .btn-warning {
-  background-color: #f59e0b;
+  background-color: #F1C40F;
   border: none;
 }
 
 .btn-danger {
-  background-color: #ef4444;
+  background-color: #FF6B6B;
   border: none;
 }
 

@@ -6,12 +6,18 @@ import { Link } from 'react-router-dom';
 import MonthlyTracker from './MonthlyTracker';
 
 const Dashboard = () => {
-  const { fetchMonthlyCount, currentMonthCount } = useContext(JobContext);
+  const { fetchMonthlyCount, currentMonthCount, jobs } = useContext(JobContext);
 
   useEffect(() => {
     fetchMonthlyCount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const currentDate = new Date();
+  const monthName = currentDate.toLocaleString('default', { month: 'long' });
+  const year = currentDate.getFullYear();
+
+  const totalApplications = jobs.length;
 
   return (
     <div>
@@ -20,9 +26,12 @@ const Dashboard = () => {
         <Col md={6}>
           <Card bg="dark" text="white" className="text-center">
             <Card.Body>
-              <Card.Title>Current Month Applications</Card.Title>
+              <Card.Title>{`${monthName} ${year} Applications`}</Card.Title>
               <Card.Text style={{ fontSize: '2rem' }}>{currentMonthCount}</Card.Text>
-              <Button as={Link} to="/jobs" variant="primary">
+              <Card.Footer>
+                <strong>Total Applications: {totalApplications}</strong>
+              </Card.Footer>
+              <Button as={Link} to="/jobs" variant="primary" className="mt-3">
                 View All Jobs
               </Button>
             </Card.Body>
