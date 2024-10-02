@@ -5,44 +5,37 @@ const User = require('../models/User');
 
 require('dotenv').config();
 
-/**
- * Registers a new user.
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- */
+/*
+Registers a new user.
+Hashes the password, checks for existing email or username, and generates a JWT token.
+*/
 const register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    // Check if email is already in use
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: 'Email already in use.' });
     }
 
-    // Check if username is already in use
     const existingUsername = await User.findOne({ where: { username } });
     if (existingUsername) {
       return res.status(400).json({ message: 'Username already in use.' });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the user
     const user = await User.create({
       username,
       email,
       password: hashedPassword,
     });
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    // Respond with token and user info
     res.status(201).json({
       token,
       user: {
@@ -57,34 +50,29 @@ const register = async (req, res) => {
   }
 };
 
-/**
- * Logs in an existing user.
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- */
+/*
+Logs in an existing user.
+Validates email, compares password, and generates a JWT token.
+*/
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    // Find user by email
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials.' });
     }
 
-    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials.' });
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    // Respond with token and user info
     res.status(200).json({
       token,
       user: {
@@ -99,11 +87,9 @@ const login = async (req, res) => {
   }
 };
 
-/**
- * Retrieves the currently authenticated user's details.
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- */
+/*
+Retrieves the currently authenticated user's details.
+*/
 const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id, {

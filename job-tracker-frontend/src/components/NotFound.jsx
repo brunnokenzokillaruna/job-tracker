@@ -2,6 +2,10 @@
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'react-bootstrap';
 
+/*
+Renders a 404 Page Not Found error screen.
+Provides a button to navigate back to the Dashboard.
+*/
 const NotFound = () => {
   return (
     <Container className="text-center mt-5">

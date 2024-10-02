@@ -8,6 +8,10 @@ const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  /*
+  Handles user logout by calling the logout function from AuthContext.
+  After logout, navigates the user to the login page.
+  */
   const handleLogout = async () => {
     await logout();
     navigate('/login');

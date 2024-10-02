@@ -20,6 +20,9 @@ const EditJob = () => {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
 
+  /*
+  Fetches job details by ID when the component mounts.
+  */
   useEffect(() => {
     const fetchJob = async () => {
       try {
@@ -27,7 +30,7 @@ const EditJob = () => {
         setJob(fetchedJob);
         setCompany(fetchedJob.company);
         setPosition(fetchedJob.position);
-        setApplicationDate(fetchedJob.applicationDate); // Already in YYYY-MM-DD format
+        setApplicationDate(fetchedJob.applicationDate);
         setStatus(fetchedJob.status);
         setNotes(fetchedJob.notes || '');
       } catch (err) {
@@ -39,6 +42,10 @@ const EditJob = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  /*
+  Handles form submission for updating a job.
+  Validates required fields before calling updateJob from JobContext.
+  */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!company || !position || !applicationDate) {
@@ -50,11 +57,7 @@ const EditJob = () => {
       await updateJob(id, { company, position, applicationDate, status, notes });
       navigate('/jobs');
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError('Failed to update job.');
-      }
+      setError(err.response?.data?.message || 'Failed to update job.');
     }
     setUpdating(false);
   };

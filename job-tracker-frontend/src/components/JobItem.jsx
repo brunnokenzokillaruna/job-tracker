@@ -8,6 +8,10 @@ import PropTypes from 'prop-types';
 const JobItem = ({ job }) => {
   const { deleteJob } = useContext(JobContext);
 
+  /*
+  Handles the deletion of a job.
+  Confirms the action with the user before proceeding.
+  */
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this job application?')) {
       deleteJob(job.id);

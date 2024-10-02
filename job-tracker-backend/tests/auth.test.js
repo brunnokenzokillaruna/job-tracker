@@ -1,8 +1,7 @@
 // job-tracker-backend/tests/auth.test.js
 const request = require('supertest');
-const app = require('../app'); // Ensure app.js exports the Express app
+const app = require('../app');
 const sequelize = require('../config/database');
-const User = require('../models/User');
 
 beforeAll(async () => {
   // Synchronize all models
@@ -66,7 +65,6 @@ describe('Authentication Endpoints', () => {
   });
 
   it('should fetch the current authenticated user', async () => {
-    // First, login to get the token
     const loginRes = await request(app)
       .post('/api/auth/login')
       .send({
@@ -75,7 +73,6 @@ describe('Authentication Endpoints', () => {
       });
     const token = loginRes.body.token;
 
-    // Fetch current user
     const res = await request(app)
       .get('/api/auth/me')
       .set('Authorization', `Bearer ${token}`);

@@ -15,7 +15,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 // Apply authentication middleware to all routes in this router
 router.use(authMiddleware);
 
-// Monthly Tracker Routes (Should be defined before dynamic ':id' routes to avoid conflicts)
+// Monthly Tracker Routes
 router.get('/count/current-month', getCurrentMonthJobCount);
 router.get('/count/:year/:month', getJobCountByMonth);
 

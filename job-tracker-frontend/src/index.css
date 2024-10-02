@@ -1,5 +1,6 @@
 /* src/index.css */
 
+/* Applies a background image to the body */
 body {
   background-image: url('./assets/background.svg');
   background-repeat: no-repeat;
@@ -9,17 +10,20 @@ body {
   color: #ffffff;
 }
 
+/* Styles for card components with a dark background */
 .card {
   background-color: #1e1e1e;
   color: #ffffff;
 }
 
+/* Form control elements with custom dark theme */
 .form-control, .form-select, .form-label {
   background-color: #2c2c2c;
   color: #ffffff;
   border: 1px solid #444;
 }
 
+/* Button styles */
 .btn-primary {
   background-color: #1F6FEB;
   border: none;
@@ -40,10 +44,12 @@ body {
   border: none;
 }
 
+/* Navbar styling with a dark background */
 .navbar, .navbar-dark {
   background-color: #1f2937;
 }
 
+/* Ensures text color is white where needed */
 .text-white {
   color: #ffffff !important;
 }

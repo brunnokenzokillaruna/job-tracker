@@ -10,10 +10,13 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  /*
+  Handles the form submission for login.
+  Calls the login function from AuthContext and navigates to the dashboard on success.
+  */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');

@@ -9,6 +9,9 @@ const JobList = () => {
   const { jobs, fetchJobs, loading, error, searchTerm, setSearchTerm, filterStatus, setFilterStatus } =
     useContext(JobContext);
 
+  /*
+  Fetches all jobs when the component mounts.
+  */
   useEffect(() => {
     fetchJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps

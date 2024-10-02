@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
+/*
+A wrapper component to protect routes that require authentication.
+Redirects the user to the login page if not authenticated.
+*/
 const ProtectedRoute = ({ children }) => {
   const { currentUser, loading } = useContext(AuthContext);
 

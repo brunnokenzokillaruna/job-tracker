@@ -8,6 +8,9 @@ import MonthlyTracker from './MonthlyTracker';
 const Dashboard = () => {
   const { fetchMonthlyCount, currentMonthCount, jobs } = useContext(JobContext);
 
+  /*
+  Fetches the count of job applications for the current month when the component mounts.
+  */
   useEffect(() => {
     fetchMonthlyCount();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 // src/contexts/JobContext.jsx
 import { createContext, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
@@ -7,7 +8,7 @@ import { AuthContext } from './AuthContext';
 export const JobContext = createContext();
 
 export const JobProvider = ({ children }) => {
-  const { currentUser, loading: authLoading } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [jobs, setJobs] = useState([]);
   const [currentMonthCount, setCurrentMonthCount] = useState(0);
   const [selectedMonthCount, setSelectedMonthCount] = useState(null);
@@ -20,6 +21,9 @@ export const JobProvider = ({ children }) => {
 
   const token = localStorage.getItem('token');
 
+  /*
+  Fetches all jobs for the current user.
+  */
   const fetchJobs = async () => {
     setLoading(true);
     setError('');
@@ -32,6 +36,9 @@ export const JobProvider = ({ children }) => {
     setLoading(false);
   };
 
+  /*
+  Adds a new job and updates the job list.
+  */
   const addJob = async (jobData) => {
     try {
       const newJob = await jobService.createJob(jobData, token);
@@ -51,6 +58,9 @@ export const JobProvider = ({ children }) => {
     }
   };
 
+  /*
+  Updates an existing job and refreshes the job list.
+  */
   const updateJob = async (id, updatedData) => {
     try {
       const updatedJob = await jobService.updateJob(id, updatedData, token);
@@ -63,6 +73,9 @@ export const JobProvider = ({ children }) => {
     }
   };
 
+  /*
+  Deletes a job and updates the job list and current month count.
+  */
   const deleteJob = async (id) => {
     try {
       const jobToDelete = jobs.find((job) => job.id === id);
@@ -83,6 +96,9 @@ export const JobProvider = ({ children }) => {
     }
   };
 
+  /*
+  Fetches a specific job by its ID.
+  */
   const getJobById = async (id) => {
     try {
       const job = await jobService.getJobById(id, token);
@@ -92,6 +108,9 @@ export const JobProvider = ({ children }) => {
     }
   };
 
+  /*
+  Fetches the number of jobs for the current month.
+  */
   const fetchMonthlyCount = async () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -107,6 +126,9 @@ export const JobProvider = ({ children }) => {
     setLoadingCount(false);
   };
 
+  /*
+  Fetches the job count for a specific month and year.
+  */
   const fetchJobCountByMonth = async (year, month) => {
     setLoadingCount(true);
     setErrorCount('');

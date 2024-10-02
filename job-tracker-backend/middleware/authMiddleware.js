@@ -3,10 +3,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 require('dotenv').config();
 
-/**
- * Authentication Middleware
- * Verifies JWT and attaches user information to the request object.
- */
+/*
+Authentication Middleware
+Verifies JWT and attaches user information to the request object.
+*/
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers['authorization'] || req.headers['Authorization'];
 

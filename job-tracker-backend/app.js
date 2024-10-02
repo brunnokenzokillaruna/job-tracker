@@ -4,8 +4,6 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const jobRoutes = require('./routes/jobRoutes');
 const sequelize = require('./config/database');
-const User = require('./models/User');
-const Job = require('./models/Job');
 require('dotenv').config();
 
 const app = express();

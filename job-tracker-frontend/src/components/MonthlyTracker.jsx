@@ -11,6 +11,10 @@ const MonthlyTracker = () => {
   const [month, setMonth] = useState('');
   const [error, setError] = useState('');
 
+  /*
+  Handles form submission to fetch job count for a specific month and year.
+  Ensures both year and month are selected before making the request.
+  */
   const handleFetch = async (e) => {
     e.preventDefault();
     if (!year || !month) {

@@ -14,17 +14,24 @@ import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 import { Container } from 'react-bootstrap';
 
+/*
+Main application component that includes routing, authentication, and job context providers.
+*/
 function App() {
   return (
     <AuthProvider>
       <JobProvider>
         <Router>
+          {/* Navbar component displayed on every page */}
           <Navbar />
           <Container className="mt-4">
             <Routes>
+              {/* Redirects to login by default */}
               <Route path="/" element={<Navigate to="/login" replace />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              
+              {/* Protected routes require authentication */}
               <Route
                 path="/dashboard"
                 element={
@@ -65,6 +72,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              
+              {/* Fallback route for 404 not found */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Container>

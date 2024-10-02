@@ -9,24 +9,36 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  /*
+  Registers a new user and sets the current user.
+  */
   const register = async (username, email, password) => {
     const data = await authService.register(username, email, password);
     setCurrentUser(data.user);
     localStorage.setItem('token', data.token);
   };
 
+  /*
+  Logs in the user and sets the current user.
+  */
   const login = async (email, password) => {
     const data = await authService.login(email, password);
     setCurrentUser(data.user);
     localStorage.setItem('token', data.token);
   };
 
+  /*
+  Logs out the current user and clears the token.
+  */
   const logout = async () => {
     await authService.logout();
     setCurrentUser(null);
     localStorage.removeItem('token');
   };
 
+  /*
+  Initializes the user from the token stored in localStorage.
+  */
   useEffect(() => {
     const initializeUser = async () => {
       const token = localStorage.getItem('token');

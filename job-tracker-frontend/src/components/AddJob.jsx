@@ -17,6 +17,10 @@ const AddJob = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  /*
+  Handles form submission for adding a job.
+  Ensures all required fields are filled before calling addJob from JobContext.
+  */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!company || !position || !applicationDate) {

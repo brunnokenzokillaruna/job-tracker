@@ -3,10 +3,10 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const User = require('./User');
 
-/**
- * Job Model
- * Represents a job application in the Job Tracker App.
- */
+/*
+Job Model
+Represents a job application in the Job Tracker App.
+*/
 const Job = sequelize.define('Job', {
   company: {
     type: DataTypes.STRING,
@@ -23,7 +23,7 @@ const Job = sequelize.define('Job', {
     },
   },
   applicationDate: {
-    type: DataTypes.DATEONLY, // Stores only the date part
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   status: {

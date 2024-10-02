@@ -11,12 +11,14 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [passwordConfirm, setPasswordConfirm] = useState('');
-
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  /*
+  Handles the form submission for registration.
+  Ensures password confirmation matches before calling the register function.
+  */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== passwordConfirm) {

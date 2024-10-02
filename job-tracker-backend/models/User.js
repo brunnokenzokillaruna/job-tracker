@@ -2,10 +2,10 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-/**
- * User Model
- * Represents a user in the Job Tracker App.
- */
+/*
+User Model
+Represents a user in the Job Tracker App.
+*/
 const User = sequelize.define('User', {
   username: {
     type: DataTypes.STRING,
